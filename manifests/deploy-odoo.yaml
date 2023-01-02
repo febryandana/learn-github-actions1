@@ -27,9 +27,9 @@ spec:
         - name: PORT
           value: "5432"
         - name: USER
-          value: admin
+          value: odoo
         - name: PASSWORD
-          value: root
+          value: odoo
 ---
 apiVersion: v1
 kind: Service
