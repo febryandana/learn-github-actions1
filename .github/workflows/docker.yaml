@@ -44,3 +44,19 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: Run Trivy vulnerability scanner for Odoo
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'febryandana/odoo:16'
+          format: 'table'
+          exit-code: '0'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+          
+      - name: Run Trivy vulnerability scanner for Postgresql
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'febryandana/postgresql:15.1'
+          format: 'table'
+          exit-code: '0'
+          severity: 'MEDIUM,HIGH,CRITICAL'
