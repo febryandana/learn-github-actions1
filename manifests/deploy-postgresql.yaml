@@ -58,6 +58,7 @@ spec:
       containers:
         - name: postgres
           image: febryandana/postgresql:15.1
+          imagePullPolicy: Always
           ports:
             - containerPort: 5432
           envFrom:

@@ -18,6 +18,7 @@ spec:
       containers:
       - name: odoo
         image: febryandana/odoo:16
+        imagePullPolicy: Always
         ports:
         - containerPort: 8069
         env:
