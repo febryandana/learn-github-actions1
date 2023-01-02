@@ -33,5 +33,14 @@ jobs:
             febryandana/odoo:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
+      - name: Build Postgresql image and push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./odoo
+          tags: |
+            febryandana/postgresql:15.1
+            febryandana/postgresql:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
+
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

@@ -1,5 +1,6 @@
 FROM debian:bullseye-slim
-MAINTAINER Odoo S.A. <info@odoo.com>
+LABEL maintainer="cx@btech.id"
+LABEL version="16"
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
