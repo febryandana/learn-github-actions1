@@ -88,4 +88,4 @@ RUN chmod +x /usr/local/bin/wait-for-psql.py
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["odoo"]
+CMD ["odoo", "-i base"]

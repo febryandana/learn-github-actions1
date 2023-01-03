@@ -57,7 +57,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15.1-alpine
+          image: postgres:15.1-bullseye
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
@@ -81,11 +81,12 @@ metadata:
     app: postgres
 spec:
   # clusterIP: 10.233.70.51
-  type: NodePort
+  # type: NodePort
+  selector:
+    app: postgres
   ports:
     - protocol: TCP
       port: 5432
       targetPort: 5432
-      nodePort: 35432
-  selector:
-    app: postgres
+      # nodePort: 35432
+

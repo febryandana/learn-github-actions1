@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  docker:
+  build_image:
     name: Build Docker image and push to repositories
     runs-on: ubuntu-latest
 
@@ -45,7 +45,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  trivy:
+  scan_image:
     name: Scan image vulnerability
     runs-on: ubuntu-latest
     needs: docker
@@ -65,3 +65,15 @@ jobs:
       #     format: 'table'
       #     exit-code: '0'
       #     severity: 'MEDIUM,HIGH,CRITICAL'
+  
+  # deploy_argo:
+  #   name: Deploy apps to ArgoCD
+  #   runs-on: self-hosted
+  #   needs: [build_image, scan_image]
+  #   steps:
+  #     - name: ArgoCD Deploy to Staging
+  #       run: |
+  #         argocd login --insecure  ${{ secrets.ARGOCD_SERVER }} --username  ${{ secrets.ARGOCD_CREDS_USR }} --password  ${{ secrets.ARGOCD_CREDS_PSW}}
+  #         argocd app create odoo --project default --repo https://github.com/febryandana/learn-github-actions1.git --path ./manifests --dest-namespace odoo --dest-server https://kubernetes.default.svc --upsert
+  #         argocd --grpc-web app sync test-app-staging --force
+  #         argocd --grpc-web app wait test-app-staging --timeout 600

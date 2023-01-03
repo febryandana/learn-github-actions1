@@ -1,6 +1,7 @@
 version: '3.5'
 services:
   web:
+    image: febryandana/odoo:16
     build:
       context: ./odoo
       dockerfile: Dockerfile
@@ -15,7 +16,7 @@ services:
     ports:
       - "8069:8069"
   db:
-    image: postgres:15
+    image: postgres:15.1-bullseye
     container_name: postgres
     ports:
       - "5432:5432"
