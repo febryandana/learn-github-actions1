@@ -8,8 +8,8 @@ metadata:
     app: postgres
 data:
   POSTGRES_DB: odoodb
-  POSTGRES_USER: odoo
-  POSTGRES_PASSWORD: odoo
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: gladiators88
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -67,21 +67,25 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
-      volumes:
-        - name: postgredb
-          persistentVolumeClaim:
-            claimName: postgresql-data-claim
+    volumes:
+      - name: postgredb
+        persistentVolumeClaim:
+          claimName: postgresql-data-claim
 ---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: postgres
-#  namespace: odoo
-#  labels:
-#    app: postgres
-#spec:
-#  type: NodePort
-#  ports:
-#    - port: 5432
-#  selector:
-#    app: postgres
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: odoo
+  labels:
+    app: postgres
+spec:
+  # clusterIP: 10.233.70.51
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 35432
+  selector:
+    app: postgres
