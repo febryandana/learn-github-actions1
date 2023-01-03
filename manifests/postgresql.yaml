@@ -1,15 +1,15 @@
-# ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: postgres-config
-#   namespace: odoo
-#   labels:
-#     app: postgres
-# data:
-#   POSTGRES_DB: odoodb
-#   POSTGRES_USER: root
-#   POSTGRES_PASSWORD: root
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: odoo
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: odoodb
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: gladiators88
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -60,16 +60,9 @@ spec:
           image: postgres:15.1-bullseye
           ports:
             - containerPort: 5432
-          env:
-          - name: POSTGRES_DB
-            value: odoodb
-          - name: POSTGRES_USER
-            value: root
-          - name: POSTGRES_PASSWORD
-            value: root
-          # envFrom:
-          #   - configMapRef:
-          #       name: postgres-config
+          envFrom:
+            - configMapRef:
+                name: postgres-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
@@ -94,5 +87,5 @@ spec:
     - protocol: TCP
       port: 5432
       targetPort: 5432
-      nodePort: 35432
+      nodePort: 30200
 
